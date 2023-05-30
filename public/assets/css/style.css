@@ -1,0 +1,14 @@
+:root{
+
+    --color-protoblue: #224a9a;
+
+}
+
+
+.text-protoblue{
+    color: var(--color-protoblue);
+}
+
+.bg-protoblue{
+    background-color: var(--color-protoblue);
+}
