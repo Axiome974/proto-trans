@@ -28,6 +28,9 @@ class SiteMetadata
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mapLink = null;
 
+    #[ORM\Column(length: 12, nullable: true)]
+    private ?string $phone = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class SiteMetadata
     public function setMapLink(?string $mapLink): self
     {
         $this->mapLink = $mapLink;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
