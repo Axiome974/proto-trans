@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('./assets/js/messages.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -53,11 +55,10 @@
                     <h1 class="h2">Back-office Transport Proto</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
-                            <a href="" class="btn btn-sm btn-outline-secondary position-relative">
+                            <a href="{{ path('app_admin_messages') }}" class="btn btn-sm btn-outline-secondary position-relative">
                                 <i class="bi bi-envelope-fill"></i>
                                 Messagerie
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" id="message-count" data-path="{{ path('app_admin_messages_count') }}">
                                 <span class="visually-hidden">messages non lus</span>
                               </span>
                             </a>

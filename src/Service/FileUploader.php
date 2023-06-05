@@ -28,6 +28,19 @@ class FileUploader
         return $fileName;
     }
 
+    /**
+     * @param string $fileName
+     * @return bool
+     */
+    public function removeFile( string $fileName ){
+        try {
+            unlink($this->getTargetDirectory()."/".$fileName);
+        } catch (FileException $e) {
+            return false;
+        }
+        return true;
+    }
+
     public function getTargetDirectory(): string
     {
         return $this->targetDirectory;

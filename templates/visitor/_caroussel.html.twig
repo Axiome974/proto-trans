@@ -1,0 +1,25 @@
+
+<div class="container-fluid m-0 p-0" style="max-height: 88vh; overflow: hidden">
+
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+
+        <div class="carousel-inner">
+            {% for picture in carousselPictures %}
+
+            <div class="carousel-item  {% if loop.first  == 1 %} active {% endif %}">
+                <img src="{{ asset('./uploads/images/')~picture.filename }}" class="d-block w-100" alt="...">
+            </div>
+            {% endfor  %}
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>

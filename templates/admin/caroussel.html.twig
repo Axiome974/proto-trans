@@ -6,7 +6,11 @@
     
     <div class="container">
         <div class="row">
-            
+            {% if images is empty %}
+                <div class="alert bg-info">
+                    Il n'y a pas encore d'image dans le caroussel, vous pouvez en ajouter grâce au formulaire ci-dessus.
+                </div>
+            {% else %}
             {% for image in images %}
                 <div class="col-3">
                     <div class="card">
@@ -14,10 +18,16 @@
                             <img src="{{ asset('/uploads/images/')~image }}" alt="" class="img-fluid">
 
                         </div>
+                        <div class="card-footer text-end">
+                            <a class="btn btn-danger" href="{{ path('app_admin_caroussel_delete', {id: image.id}) }}">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
             {% endfor %}
+            {% endif %}
         </div>
             
     </div>

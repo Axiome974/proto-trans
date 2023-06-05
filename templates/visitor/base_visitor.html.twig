@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('./assets/css/style.css') }}">
+{% endblock %}
+{% block title %}Transport Proto{% endblock %}
+
+{% block body %}
+<main id="home">
+
+    <div class="container-fluid pt-3 px-md-5 px-0">
+
+    {{  include('visitor/_navbar.html.twig') }}
+
+        {% block body_visitor %}{% endblock %}
+
+    {{ include('visitor/_footer.html.twig') }}
+
+    </div>
+</main>
+{% endblock %}

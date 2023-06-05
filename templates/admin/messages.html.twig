@@ -1,0 +1,40 @@
+ {% extends 'admin/base_admin.html.twig' %}
+
+{% block admin_body %}
+    <h2>Messagerie</h2>
+
+    <div class="container">
+        <div class="row">
+            {% if messages is empty %}
+                <div class="alert bg-info">
+                    Il n'y a pas de messages
+                </div>
+            {% endif %}
+            {% for message in messages %}
+                <div class="col-12 my-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5>{{ message.reason }}</h5>
+                            <h5>{{ message.createdAt|date("d/m/y h:i") }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><i class="bi bi-person-fill"></i> {{ message.name }}</p>
+                            <p><i class="bi bi-envelope-fill"></i> <a href="mailto:{{ message.email }}">{{ message.email }}</a></p>
+                            <p class="bg-light p-2">{{ message.message }}</p>
+                        </div>
+                        
+                        <div class="card-footer text-end">
+                            <a class="btn btn-success" href="{{ path("app_admin_messages_hide", {id: message.id}) }}"><i class="bi bi-check2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+
+
+
+{% endblock %}

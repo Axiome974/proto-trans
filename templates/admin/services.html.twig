@@ -3,4 +3,47 @@
 {% block admin_body %}
     <h2>Services</h2>
 
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+
+    {% if serviceCards is not empty %}
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    {% for service in serviceCards %}
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2>{{ service.title }}</h2>
+                                <img src="{{ asset('./uploads/images/')~service.filename }}" alt="" class="img-fluid">
+                                <p>{{ service.description }}</p>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-danger" href="{{ path('app_admin_services_delete', {id: service.id}) }}">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+        {% else %}
+            <div class="alert bg-info">
+                Il n'y a pas encore de vignette "Services", vous pouvez en ajouter en cliquant sur le bouton "ajouter".
+            </div>
+        {% endif %}
+    </div>
+
+
 {% endblock %}

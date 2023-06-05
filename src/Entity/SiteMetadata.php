@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SiteMetadataRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SiteMetadataRepository::class)]
@@ -25,11 +26,13 @@ class SiteMetadata
     #[ORM\Column(length: 128, nullable: true)]
     private ?string $contactEmail = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mapLink = null;
+
 
     #[ORM\Column(length: 12, nullable: true)]
     private ?string $phone = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mapLink = null;
 
     public function getId(): ?int
     {
@@ -84,17 +87,6 @@ class SiteMetadata
         return $this;
     }
 
-    public function getMapLink(): ?string
-    {
-        return $this->mapLink;
-    }
-
-    public function setMapLink(?string $mapLink): self
-    {
-        $this->mapLink = $mapLink;
-
-        return $this;
-    }
 
     public function getPhone(): ?string
     {
@@ -104,6 +96,18 @@ class SiteMetadata
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getMapLink(): ?string
+    {
+        return $this->mapLink;
+    }
+
+    public function setMapLink(?string $mapLink): self
+    {
+        $this->mapLink = $mapLink;
 
         return $this;
     }

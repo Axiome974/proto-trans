@@ -1,0 +1,20 @@
+    <header class="">
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3">
+            <a href="{{ path('app_visitor') }}">
+                <img src="{{ asset('assets/image/logo4.jpg') }}" alt="" class="img-fluid" width="244" >
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_visitor') }}">Accueil</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#our-services">Nos Services</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="#contact-us">Contactez-nous</a>
+                {%if app.user != null %}
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_admin_home') }}">Administration</a>
+                {% endif %}
+
+            </nav>
+        </div>
+
+    </header>
+</div>
+
