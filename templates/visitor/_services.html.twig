@@ -1,6 +1,6 @@
 {% if serviceCards is not empty %}
 
-<div class="container mt-5 pb-5" id="our-services">
+<div class="container-fluid mt-5 pb-5 container-lg" id="our-services">
 
     <h2 class="border-bottom text-center pb-2 pt-5">Nos Services</h2>
 
@@ -8,11 +8,11 @@
 
         {% for serviceCard in serviceCards %}
 
-        <div class="col-md-4">
+        <div class="col-md-12 col-lg-4 text-center">
 
             <h3 class="text-center">{{ serviceCard.title }}</h3>
 
-            <div class="p-2 border mb-2">
+            <div class="p-2 border mb-2 ">
                 <img src="{{ asset('./uploads/images/')~serviceCard.filename }}" alt="" class="img-fluid">
             </div>
             <p>

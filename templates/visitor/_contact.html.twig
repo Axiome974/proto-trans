@@ -2,13 +2,13 @@
     <h2 class="border-bottom text-center pb-2 mb-5">Contactez-nous</h2>
 
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-lg-7 col-md-12">
 
             {{ form(contactForm) }}
 
         </div>
         {% if siteMetadata is not null %}
-        <div class="col-md-5">
+        <div class="col-md-12 col-lg-5">
             <h3>Transport <span class="fw-bolder">PROTO</span></h3>
             <p>{{ siteMetadata.street }}</p>
             <p>{{ siteMetadata.zipcode }} {{ siteMetadata.city }}</p>
