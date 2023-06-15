@@ -23,13 +23,13 @@
                     {{ form_start(quotationForm) }}
                     <h5>Coordonnées</h5>
                     <div class="row border-bottom">
-                        <div class="col-6">
+                        <div class="col-md-6">
                             {{ form_row(quotationForm.lastname) }}
                             {{ form_row(quotationForm.firstname) }}
                             {{ form_row(quotationForm.email) }}
 
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6">
                             {{ form_row(quotationForm.phone) }}
 
                             {{ form_row(quotationForm.fax) }}
@@ -37,16 +37,22 @@
                     </div>
                     <h5 class="mt-2">Votre voyage</h5>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6">
                             {{ form_row(quotationForm.departureCity) }}
                             {{ form_row(quotationForm.departureAt) }}
-                            {{ form_row(quotationForm.passengers) }}
-                            {{ form_row(quotationForm.isUsingBus) }}
-
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6">
                             {{ form_row(quotationForm.arrivalCity) }}
                             {{ form_row(quotationForm.arrivalAt) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(quotationForm.passengers) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(quotationForm.isUsingBus) }}
                         </div>
                     </div>
 
