@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Quotation;
 use App\Form\ContactType;
+use App\Form\QuotationType;
 use App\Repository\CarouselPictureRepository;
 use App\Repository\ContactRepository;
+use App\Repository\QuotationRepository;
 use App\Repository\ServiceCardRepository;
 use App\Repository\SiteMetadataRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,15 +27,26 @@ class VisitorController extends AbstractController
     ): Response
     {
         $newContact = new Contact();
-        $form = $this->createForm(ContactType::class, $newContact, [
+        $contactForm = $this->createForm(ContactType::class, $newContact, [
             "action" => $this->generateUrl("app_visitor_contact")
+        ]);
+
+        // Quotation form
+        $now = new \DateTimeImmutable("now");
+        $next = $now->modify("+7days");
+        $quotation = new Quotation();
+        $quotation->setDepartureAt($next->setTime(9,0,0));
+        $quotation->setArrivalAt($next->setTime(18,0,0));
+        $quotationForm = $this->createForm(QuotationType::class, $quotation, [
+            "action" => $this->generateUrl("app_visitor_quotation")
         ]);
 
         return $this->render('visitor/index.html.twig', [
             'carousselPictures' => $carouselPictureRepository->findAll(),
             'serviceCards'      => $serviceCardRepository->findAll(),
             'siteMetadata'      => $siteMetadataRepository->findOneBy([]),
-            'contactForm'       => $form->createView()
+            'contactForm'       => $contactForm->createView(),
+            'quotationForm'     => $quotationForm->createView()
         ]);
     }
 
@@ -51,6 +65,29 @@ class VisitorController extends AbstractController
             $contactRepository->save($newContact, true);
             return new JsonResponse([
                 "message" => "Votre message a été transmis, nous reviendrons vers vous prochainement!"
+            ]);
+        }
+        return new JsonResponse([
+            "message" => "Votre message n'a pas pu être envoyé."
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    #[Route('/quotation', name: 'app_visitor_quotation', methods: ["POST"])]
+    public function quoation(
+        QuotationRepository $quotationRepository,
+        Request $request
+    ): JsonResponse
+    {
+        // Quotation form
+        $quotation = new Quotation();
+        $form = $this->createForm(QuotationType::class, $quotation);
+        $form->handleRequest($request);
+        if( $form->isSubmitted() && $form->isValid() ){
+            $quotation->setCreatedAt(new \DateTimeImmutable("now"));
+            $quotation->setIsHidden(false);
+            $quotationRepository->save($quotation, true);
+            return new JsonResponse([
+                "message" => "Votre demande de devis a été envoyée, nous reviendrons vers vous prochainement!"
             ]);
         }
         return new JsonResponse([

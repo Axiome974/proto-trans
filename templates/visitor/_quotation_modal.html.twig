@@ -1,0 +1,64 @@
+<!-- Modal -->
+<div class="modal modal-lg fade modal-fullscreen-md-down" id="quotationModal" tabindex="-1" aria-labelledby="quotationModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-protoblue text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Votre devis en ligne</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="d-none align-items-center flex-column" id="quotation-loader">
+                    <h3>Envoi du devis...</h3>
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+
+                <div id="quotation-form">
+                    <div class="d-none alert bg-danger text-white" id="quotation-alert"><i class="bi bi-exclamation-triangle"></i> <span></span> </div>
+                    <div class="d-none alert bg-success text-white" id="quotation-success"><i class="bi bi-check2"></i> <span></span> </div>
+
+                    {{ form_start(quotationForm) }}
+                    <h5>Coordonnées</h5>
+                    <div class="row border-bottom">
+                        <div class="col-6">
+                            {{ form_row(quotationForm.lastname) }}
+                            {{ form_row(quotationForm.firstname) }}
+                            {{ form_row(quotationForm.email) }}
+
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(quotationForm.phone) }}
+
+                            {{ form_row(quotationForm.fax) }}
+                        </div>
+                    </div>
+                    <h5 class="mt-2">Votre voyage</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form_row(quotationForm.departureCity) }}
+                            {{ form_row(quotationForm.departureAt) }}
+                            {{ form_row(quotationForm.passengers) }}
+                            {{ form_row(quotationForm.isUsingBus) }}
+
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(quotationForm.arrivalCity) }}
+                            {{ form_row(quotationForm.arrivalAt) }}
+                        </div>
+                    </div>
+
+                    {{ form_end(quotationForm) }}
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success">Envoyer</button>
+            </div>
+        </div>
+    </div>
+</div>

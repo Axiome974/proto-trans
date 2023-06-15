@@ -7,8 +7,7 @@
 
 {% block body %}
 <main id="home">
-
-    <div class="container-fluid pt-3 px-md-5 px-0">
+    {{ include('visitor/_quotation_modal.html.twig') }}
 
     {{  include('visitor/_navbar.html.twig') }}
 
@@ -16,6 +15,5 @@
 
     {{ include('visitor/_footer.html.twig') }}
 
-    </div>
 </main>
 {% endblock %}

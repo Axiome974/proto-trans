@@ -29,6 +29,7 @@ const contactForm = {
                 return response.json()
             })
             .then( json => {
+                form.reset();
                 alert(json.message);
             })
     }

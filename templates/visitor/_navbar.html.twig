@@ -1,10 +1,10 @@
-    <header class="">
-        <div class="d-flex flex-column flex-md-row align-items-center pb-3">
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center">
             <a href="{{ path('app_visitor') }}">
                 <img src="{{ asset('assets/image/logo4.jpg') }}" alt="" class="img-fluid" width="244" >
             </a>
 
-            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <nav class="d-inline-flex ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_visitor') }}">Accueil</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#our-services">Nos Services</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#contact-us">Contactez-nous</a>
@@ -12,9 +12,20 @@
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_admin_home') }}">Administration</a>
                 {% endif %}
 
-            </nav>
-        </div>
 
+
+            </nav>
+                <button data-bs-toggle="modal" data-bs-target="#quotationModal" class="text-white text-decoration-none h4 bg-protoblue m-0 text-center d-none d-md-block" style="padding: 1.8rem; border:none">
+                    <i class="bi bi-cursor"></i>
+                    Devis en ligne
+                </button>
+        </div>
     </header>
-</div>
+
+    <div class="container-fluid m-0 p-0 d-flex d-md-none">
+        <button data-bs-toggle="modal" data-bs-target="#quotationModal"  class="text-white text-decoration-none h4 bg-protoblue m-0 text-center w-100  p-3" style="border:none">
+            <i class="bi bi-cursor"></i>
+            Devis en ligne
+        </button>
+    </div>
 

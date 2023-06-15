@@ -1,0 +1,71 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block admin_body %}
+    <h2>Demandes de devis{% if isArchive %} archivées{% endif %}</h2>
+    {% if not isArchive %} <a href="{{ path('app_admin_quotations', {archive:true}) }}" class="decoration-none">Accéder aux archives</a> {% endif %}
+
+    <div class="container">
+        <div class="row">
+            {% if quotations is empty %}
+                <div class="alert bg-info">
+                    Aucune demande de devis en cours
+                </div>
+            {% endif %}
+            {% for quotation in quotations %}
+                <div class="col-12 my-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5>{{ quotation.firstname }} {{ quotation.lastname }} - {{ quotation.departureCity }} <i class="bi bi-caret-right-fill"></i> {{ quotation.arrivalCity }} </h5>
+                            <h5>reçue le {{ quotation.createdAt|date("d/m/y à h:i") }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="fw-bold"><i class="bi bi-person-fill"></i> {{ quotation.firstname }} {{ quotation.lastname }}</p>
+                            <p><i class="bi bi-envelope-fill"></i> <a href="mailto:{{ quotation.email }}">{{ quotation.email }}</a></p>
+                            <p><i class="bi bi-telephone-fill"></i> {{ quotation.phone }} {% if quotation.fax %} - <i class="bi bi-printer"></i> {{ quotation.fax }} {% endif %}</p>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Départ</h5>
+                                    {{ quotation.departureCity }} - {{ quotation.departureAt|date("d/m/Y à H:i") }}
+                                </div>
+                                <div class="col-6">
+                                    <h5>Retour</h5>
+                                    {{ quotation.arrivalCity }} - {{ quotation.arrivalAt|date("d/m/Y à H:i") }}
+                                </div>
+                            </div>
+
+                            <div class="row mt-4 text-white">
+                                <div class="col-6 ">
+                                    {% if quotation.isUsingBus %}
+                                        <div class="alert bg-success"><i class="bi bi-check-circle"></i> Utilisation du bus sur place</div>
+                                    {% else %}
+                                        <div class="alert bg-danger"><i class="bi bi-x-circle"></i> Pas d'utilisation du bus sur place</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-6 ">
+                                    <div class="alert bg-dark">
+                                        <i class="bi bi-people-fill"></i> {{ quotation.passengers }} passagers
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer text-end">
+                            {% if quotation.isHidden %}
+                                <a class="btn btn-warning" href="{{ path("app_admin_quotations_show", {id: quotation.id}) }}"><i class="bi bi-arrow-repeat"></i></a>
+                            {% else %}
+                                <a class="btn btn-success" href="{{ path("app_admin_quotations_hide", {id: quotation.id}) }}"><i class="bi bi-check2"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+
+
+
+{% endblock %}

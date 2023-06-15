@@ -3,24 +3,28 @@ const messagesCounter = {
     init: function(){
         console.log("loaded")
         const messagePill = document.querySelector("#message-count");
+        const quotationPill = document.querySelector("#devis-count");
         const url = messagePill.dataset.path;
         fetch(url)
             .then( response => {
                 return response.json()
             })
             .then( json => {
-                let count = parseInt(json.messages);
-                if( count <= 0){
-                    return false;
-                }
-
-                if( count > 99){
-                    count = "99+";
-                }
-
-                messagePill.innerText = count;
-                messagePill.classList.remove("d-none")
+                messagesCounter.updatePill("#message-count", parseInt(json.messages));
+                messagesCounter.updatePill("#devis-count", parseInt(json.quotations));
             })
+    },
+
+    updatePill: function(pill, value){
+        const pillElement = document.querySelector(pill);
+        if( value <= 0){
+            return false;
+        }
+        if( value > 99){
+            value = "99+";
+        }
+        pillElement.innerText = value;
+        pillElement.classList.remove("d-none")
     }
 }
 document.addEventListener("DOMContentLoaded", messagesCounter.init );

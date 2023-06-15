@@ -1,7 +1,9 @@
  {% extends 'admin/base_admin.html.twig' %}
 
 {% block admin_body %}
-    <h2>Messagerie</h2>
+    <h2>Messagerie{% if isArchive %} archivées{% endif %}</h2>
+    {% if not isArchive %} <a href="{{ path('app_admin_messages', {archive:true}) }}" class="decoration-none">Accéder aux archives</a> {% endif %}
+
 
     <div class="container">
         <div class="row">
@@ -24,7 +26,11 @@
                         </div>
                         
                         <div class="card-footer text-end">
-                            <a class="btn btn-success" href="{{ path("app_admin_messages_hide", {id: message.id}) }}"><i class="bi bi-check2"></i></a>
+                            {% if message.isHidden %}
+                                <a class="btn btn-warning" href="{{ path("app_admin_quotations_show", {id: message.id}) }}"><i class="bi bi-arrow-repeat"></i></a>
+                            {% else %}
+                                <a class="btn btn-success" href="{{ path("app_admin_messages_hide", {id: message.id}) }}"><i class="bi bi-check2"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

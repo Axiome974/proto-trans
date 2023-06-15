@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CarouselPicture;
 use App\Entity\Contact;
+use App\Entity\Quotation;
 use App\Entity\ServiceCard;
 use App\Entity\SiteMetadata;
 use App\Form\CarouselPictureType;
@@ -11,11 +12,13 @@ use App\Form\ServiceCardType;
 use App\Form\SiteMetadataType;
 use App\Repository\CarouselPictureRepository;
 use App\Repository\ContactRepository;
+use App\Repository\QuotationRepository;
 use App\Repository\ServiceCardRepository;
 use App\Repository\SiteMetadataRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,10 +36,15 @@ class AdminController extends AbstractController
 
     #[Route('/messages/count', name: 'messages_count')]
     public function getMessages(
-        ContactRepository $contactRepository
-    ){
+        ContactRepository $contactRepository,
+        QuotationRepository $quotationRepository
+    ): JsonResponse
+    {
         return new JsonResponse([
             "messages" => $contactRepository->count([
+                "isHidden" => false
+            ]),
+            "quotations"     => $quotationRepository->count([
                 "isHidden" => false
             ])
         ]);
@@ -44,12 +52,20 @@ class AdminController extends AbstractController
 
     #[Route('/messages', name: 'messages')]
     public function message(
-        ContactRepository $contactRepository
-    ){
+        ContactRepository $contactRepository,
+        Request $request
+    ): Response
+    {
+        if( $request->query->get("archive")) {
+            $isHidden = true;
+        }else{
+            $isHidden = false;
+        }
         return $this->render('admin/messages.html.twig', [
             "messages"      => $contactRepository->findBy([
-                "isHidden"  => false
-            ])
+                "isHidden"  => $isHidden
+            ]),
+            "isArchive" => $isHidden
         ]);
     }
 
@@ -57,11 +73,66 @@ class AdminController extends AbstractController
     public function messageHide(
         ContactRepository $contactRepository,
         Contact $contact
-    ){
+    ): RedirectResponse
+    {
         $contact->setIsHidden(true);
         $contactRepository->save($contact, true);
         return $this->redirectToRoute("app_admin_messages");
     }
+
+    #[Route('/messages/{id}/show', name: 'messages_show')]
+    public function messageShow(
+        ContactRepository $contactRepository,
+        Contact $contact
+    ): RedirectResponse
+    {
+        $contact->setIsHidden(false);
+        $contactRepository->save($contact, true);
+        return $this->redirectToRoute("app_admin_messages");
+    }
+
+    #[Route('/quotations', name: 'quotations')]
+    public function quotations(
+        QuotationRepository $quotationRepository,
+        Request $request
+    ): Response
+    {
+        if( $request->query->get("archive")) {
+            $isHidden = true;
+        }else{
+            $isHidden = false;
+        }
+        return $this->render('admin/quotations.html.twig', [
+            "quotations"      => $quotationRepository->findBy([
+                "isHidden"  => $isHidden
+            ]),
+            "isArchive" => $isHidden
+        ]);
+    }
+
+    #[Route('/quotations/{id}/hide', name: 'quotations_hide')]
+    public function quotationsHide(
+        QuotationRepository $quotationRepository,
+        Quotation $quotation
+    ): RedirectResponse
+    {
+        $quotation->setIsHidden(true);
+        $quotationRepository->save($quotation, true);
+        return $this->redirectToRoute("app_admin_quotations");
+    }
+
+    #[Route('/quotations/{id}/show', name: 'quotations_show')]
+    public function quotationsShow(
+        QuotationRepository $quotationRepository,
+        Quotation $quotation
+    ): RedirectResponse
+    {
+        $quotation->setIsHidden(false);
+        $quotationRepository->save($quotation, true);
+        return $this->redirectToRoute("app_admin_quotations");
+    }
+
+
 
     #[Route('/informations', name: 'informations')]
     public function informations(
