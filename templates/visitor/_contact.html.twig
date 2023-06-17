@@ -2,10 +2,22 @@
     <h2 class="border-bottom text-center pb-2 mb-5">Contactez-nous</h2>
 
     <div class="row">
-        <div class="col-lg-7 col-md-12">
+        <div class="col-lg-7 col-md-12 pb-3">
+            {{ form_start(contactForm) }}
+            {{ form_row(contactForm.name) }}
+            {{ form_row(contactForm.email) }}
+            {{ form_row(contactForm.reason) }}
 
-            {{ form(contactForm) }}
+            {{ form_row(contactForm.message) }}
+                <div class="d-flex">
+                    {{ form_row(contactForm.captcha) }}
+                </div>
 
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-outline-light btn">Envoyer</button>
+            </div>
+            {{ form_end(contactForm) }}
         </div>
         {% if siteMetadata is not null %}
         <div class="col-md-12 col-lg-5">

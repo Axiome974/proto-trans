@@ -50,12 +50,7 @@ class ContactType extends AbstractType
             ->add('captcha', CaptchaType::class, [
                 "label" => "Répétez le code suivant: "
             ])
-            ->add('submit',  SubmitType::class, [
-                'label'         => 'Envoyer',
-                "attr"          => [
-                    "class" => "btn btn-success btn-outline"
-                ]
-            ])
+
 
         ;
     }
