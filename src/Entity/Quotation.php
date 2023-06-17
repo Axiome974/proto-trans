@@ -206,6 +206,11 @@ class Quotation
         return $this->isHidden;
     }
 
+    public function getFullName(): string
+    {
+        return $this->getFirstname()." ".$this->getLastname();
+    }
+
     public function setIsHidden(bool $isHidden): self
     {
         $this->isHidden = $isHidden;

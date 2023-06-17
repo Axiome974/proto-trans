@@ -14,6 +14,7 @@ use App\Repository\SiteMetadataRepository;
 use App\Service\ContactMailer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,20 +86,31 @@ class VisitorController extends AbstractController
     #[Route('/quotation', name: 'app_visitor_quotation', methods: ["POST"])]
     public function quoation(
         QuotationRepository $quotationRepository,
-        Request $request
-    ): JsonResponse
+        Request $request,
+        ContactMailer $contactMailer
+    ): Response
     {
         // Quotation form
         $quotation = new Quotation();
         $form = $this->createForm(QuotationType::class, $quotation);
         $form->handleRequest($request);
+        $errors = [];
         if( $form->isSubmitted() && $form->isValid() ){
             $quotation->setCreatedAt(new \DateTimeImmutable("now"));
             $quotation->setIsHidden(false);
             $quotationRepository->save($quotation, true);
+            $contactMailer->sendQuotationEmail($quotation);
             return new JsonResponse([
                 "message" => "Votre demande de devis a été envoyée, nous reviendrons vers vous prochainement!"
             ]);
+        }elseif( $form->isSubmitted() ){
+            /**
+             * @var FormError[] $errors
+             */
+            $errors = $form->getErrors(true);
+            foreach ( $errors as $error ){
+                dd($error->getMessage());
+            }
         }
         return new JsonResponse([
             "message" => "Votre message n'a pas pu être envoyé."
@@ -113,18 +125,5 @@ class VisitorController extends AbstractController
         return $this->render('visitor/legals.html.twig', [
 
             ]);
-    }
-
-    #[Route('/email')]
-    public function sendEmail(MailerInterface $mailer): Response
-    {
-
-        try {
-            $mailer->send($email);
-        }catch (TransportExceptionInterface $e ){
-            dd($e);
-        }
-
-        return new JsonResponse("Email sent!");
     }
 }

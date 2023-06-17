@@ -1,0 +1,22 @@
+<h1>Transport Proto - Site Web</h1>
+
+<h2>Vous avez une demande de devis</h2>
+
+<h3>Nom: {{ quotation.firstname }} {{ quotation.lastname }}</h3>
+<h3>Email: {{ quotation.email }}</h3>
+<h3>Téléphone: {{ quotation.phone }}</h3>
+{%if quotation.fax %}
+    <h3>Fax: {{ quotation.fax }}</h3>
+{% endif %}
+
+<h3>Trajet: {{ quotation.departureCity }} - {{ quotation.arrivalCity }}</h3>
+<h3>{{ quotation.passengers }} passagers</h3>
+<h4>Départ: {{ quotation.departureAt|date('d/m/Y à H:i') }}</h4>
+<h4>Retour: {{ quotation.arrivalAt|date('d/m/Y à H:i') }}</h4>
+
+{%if quotation.isUsingBus %}
+    <h5>Le client souhaite utiliser le bus sur place</h5>
+{% else %}
+    <h5>Le client ne souhaite pas utiliser le bus sur place</h5>
+{% endif %}
+La demande de devis est visible <a href="{{ absolutePath }}">sur votre panneau d'administration</a>

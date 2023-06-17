@@ -15,9 +15,15 @@ class CarouselPictureType extends AbstractType
     {
         $builder
             ->add('file', FileType::class,[
-                "mapped"    =>  false
+                "mapped"    =>  false,
+                "label"     => "Importer une image"
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                "label"     => "Ajouter l'image",
+                "attr"      => [
+                    "class" => "btn btn-success"
+                ]
+            ])
         ;
     }
 

@@ -2,9 +2,13 @@
 
 {% block admin_body %}
     <h2>Caroussel </h2>
+    <div class="alert bg-warning">
+        <i class="bi bi-exclamation-triangle-fill"></i> Afin d'obtenir une mise en page uniforme, assurez vous que vos images aient toutes les mêmes dimensions et ne dépassent pas <b>864px</b> de hauteur. La largeur devrait être de <b>1920px</b>
+    </div>
     {{ form(form) }}
-    
-    <div class="container">
+
+    <hr>
+    <div class="container-fluid">
         <div class="row">
             {% if images is empty %}
                 <div class="alert bg-info">
@@ -16,7 +20,6 @@
                     <div class="card">
                         <div class="card-body">
                             <img src="{{ asset('uploads/images/'~image) }}" alt="" class="img-fluid">
-
                         </div>
                         <div class="card-footer text-end">
                             <a class="btn btn-danger" href="{{ path('app_admin_caroussel_delete', {id: image.id}) }}">
