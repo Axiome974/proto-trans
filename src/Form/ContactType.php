@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -46,12 +47,16 @@ class ContactType extends AbstractType
 
                 ]
             ])
+            ->add('captcha', CaptchaType::class, [
+                "label" => "Répétez le code suivant: "
+            ])
             ->add('submit',  SubmitType::class, [
                 'label'         => 'Envoyer',
                 "attr"          => [
                     "class" => "btn btn-success btn-outline"
                 ]
             ])
+
         ;
     }
 

@@ -11,11 +11,18 @@ use App\Repository\ContactRepository;
 use App\Repository\QuotationRepository;
 use App\Repository\ServiceCardRepository;
 use App\Repository\SiteMetadataRepository;
+use App\Service\ContactMailer;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class VisitorController extends AbstractController
 {
@@ -53,7 +60,8 @@ class VisitorController extends AbstractController
     #[Route('/contact', name: 'app_visitor_contact', methods: ["POST"])]
     public function contact(
         ContactRepository $contactRepository,
-        Request $request
+        Request $request,
+        ContactMailer $contactMailer
     ): JsonResponse
     {
         $newContact = new Contact();
@@ -63,6 +71,8 @@ class VisitorController extends AbstractController
             $newContact->setCreatedAt(new \DateTimeImmutable("now"));
             $newContact->setIsHidden(false);
             $contactRepository->save($newContact, true);
+            $contactMailer->sendContactEmail($newContact);
+
             return new JsonResponse([
                 "message" => "Votre message a été transmis, nous reviendrons vers vous prochainement!"
             ]);
@@ -103,5 +113,18 @@ class VisitorController extends AbstractController
         return $this->render('visitor/legals.html.twig', [
 
             ]);
+    }
+
+    #[Route('/email')]
+    public function sendEmail(MailerInterface $mailer): Response
+    {
+
+        try {
+            $mailer->send($email);
+        }catch (TransportExceptionInterface $e ){
+            dd($e);
+        }
+
+        return new JsonResponse("Email sent!");
     }
 }
