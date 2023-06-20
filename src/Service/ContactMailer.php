@@ -14,6 +14,7 @@ class ContactMailer{
 
 
     public function __construct(
+        private string $adminEmail,
         private MailerInterface $mailer,
         private UrlGeneratorInterface $urlGenerator
     )
