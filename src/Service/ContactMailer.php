@@ -26,7 +26,7 @@ class ContactMailer{
         $email = new TemplatedEmail();
         $email  ->from($this->adminEmail)
                 ->htmlTemplate("emails/contact_email.html.twig")
-                ->to($contact->getEmail())
+                ->to($this->adminEmail)
                 ->subject($contact->getName().' - '.$contact->getReason())
                 ->context([
                     "contact" => $contact,
@@ -40,7 +40,7 @@ class ContactMailer{
         $email = new TemplatedEmail();
         $email  ->from($this->adminEmail)
             ->htmlTemplate("emails/quotation_email.html.twig")
-            ->to($quotation->getEmail())
+            ->to($this->adminEmail)
             ->subject($quotation->getFullName().' - demande de devis')
             ->context([
                 "quotation" => $quotation,
