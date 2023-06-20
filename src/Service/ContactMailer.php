@@ -24,7 +24,7 @@ class ContactMailer{
     public function sendContactEmail(Contact $contact): void
     {
         $email = new TemplatedEmail();
-        $email  ->from('nepasrepondre@transportproto.fr')
+        $email  ->from($this->adminEmail)
                 ->htmlTemplate("emails/contact_email.html.twig")
                 ->to($contact->getEmail())
                 ->subject($contact->getName().' - '.$contact->getReason())
@@ -38,7 +38,7 @@ class ContactMailer{
     public function sendQuotationEmail(Quotation $quotation): void
     {
         $email = new TemplatedEmail();
-        $email  ->from('nepasrepondre@transportproto.fr')
+        $email  ->from($this->adminEmail)
             ->htmlTemplate("emails/quotation_email.html.twig")
             ->to($quotation->getEmail())
             ->subject($quotation->getFullName().' - demande de devis')
@@ -51,11 +51,7 @@ class ContactMailer{
 
     public function send( TemplatedEmail $email ): void
     {
-        try {
-            $this->mailer->send($email);
-        }catch ( \Exception $e ){
-            dd($e);
-        }
+        $this->mailer->send($email);
     }
 
 
