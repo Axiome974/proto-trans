@@ -3,6 +3,11 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('./assets/css/style.css') }}">
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('./assets/js/modal-loader.js') }}" defer></script>
+{% endblock %}
 {% block title %}Transport Proto{% endblock %}
 
 {% block body %}

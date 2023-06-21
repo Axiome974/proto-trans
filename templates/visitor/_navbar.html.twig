@@ -15,7 +15,7 @@
 
 
             </nav>
-                <button data-bs-toggle="modal" data-bs-target="#quotationModal" class="text-white text-decoration-none h4 bg-protoblue m-0 text-center d-none d-md-block" style="padding: 1.8rem; border:none">
+                <button data-bs-toggle="modal" data-bs-target="#quotationModal" class="text-white text-decoration-none h4 bg-protoblue m-0 text-center d-none d-md-block quotation-modal-btn" style="padding: 1.8rem; border:none" data-controller="{{ path('app_visitor_quotation') }}">
                     <i class="bi bi-cursor"></i>
                     Devis en ligne
                 </button>
@@ -23,7 +23,7 @@
     </header>
 
     <div class="container-fluid m-0 p-0 d-flex d-md-none">
-        <button data-bs-toggle="modal" data-bs-target="#quotationModal"  class="text-white text-decoration-none h4 bg-protoblue m-0 text-center w-100  p-3" style="border:none">
+        <button data-bs-toggle="modal" data-bs-target="#quotationModal"  class="text-white text-decoration-none h4 bg-protoblue m-0 text-center w-100  p-3 quotation-modal-btn" style="border:none" data-controller="{{ path('app_visitor_quotation') }}">
             <i class="bi bi-cursor"></i>
             Devis en ligne
         </button>

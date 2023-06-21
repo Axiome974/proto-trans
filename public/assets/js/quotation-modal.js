@@ -5,11 +5,7 @@ const quotationModal = {
 
     init: function(){
         const submitButton = quotationModal.modal.querySelector(".btn-success");
-        quotationModal.form =  quotationModal.modal.querySelector("form");
         submitButton.addEventListener('click', quotationModal.handleSubmit);
-
-        quotationModal.form.addEventListener('submit', quotationModal.handleSubmit);
-
     },
 
     handleSubmit: function( event ){
@@ -26,14 +22,15 @@ const quotationModal = {
             .then( response => {
                 quotationModal.toggleLoader();
                 if( response.ok ){
-                    return response.json()
+                    return response.text()
                 }
                 quotationModal.alertMessage("Les données saisies sont incorrectes");
                 throw new Error("Les données saisies sont incorrectes");
             })
-            .then( json => {
-                form.reset();
-                quotationModal.successMessage(json.message);
+            .then( html => {
+                const modalBody = document.querySelector(".modal-body-content");
+                modalBody.innerHTML = html;
+                modalLoader.applyFormEventListener();
             })
     },
 

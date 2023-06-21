@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\QuotationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: QuotationRepository::class)]
 class Quotation
@@ -14,37 +16,53 @@ class Quotation
     private ?int $id = null;
 
     #[ORM\Column(length: 64)]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
+    #[Assert\Length(max:64, maxMessage: "Ne doit pas dépasser 64 caractères.")]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 64)]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
+    #[Assert\Length(max:64, maxMessage: "Ne doit pas dépasser 64 caractères.")]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
+    #[Assert\Email(message: "Vous devez saisir un email valide.")]
+
     private ?string $email = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(length: 20, nullable: true)]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
+    #[Assert\Length(max:20, maxMessage: "Ne doit pas dépasser 20 chiffres", min: 9, minMessage: "Doit comporter au moins 9 chiffres.")]
     private ?string $phone = null;
 
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $fax = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
     private ?\DateTimeImmutable $departureAt = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
     private ?\DateTimeImmutable $arrivalAt = null;
 
     #[ORM\Column(length: 96)]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
+    #[Assert\Length(max:96, maxMessage: "Ne doit pas dépasser 96 caractères.")]
     private ?string $departureCity = null;
 
     #[ORM\Column(length: 96)]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
+    #[Assert\Length(max:96, maxMessage: "Ne doit pas dépasser 96 caractères.")]
     private ?string $arrivalCity = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez saisir une valeur.")]
     private ?int $passengers = null;
 
     #[ORM\Column]
-    private ?bool $isUsingBus = null;
+    private ?bool $isUsingBus = false;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;

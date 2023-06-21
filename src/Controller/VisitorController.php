@@ -39,22 +39,13 @@ class VisitorController extends AbstractController
             "action" => $this->generateUrl("app_visitor_contact")
         ]);
 
-        // Quotation form
-        $now = new \DateTimeImmutable("now");
-        $next = $now->modify("+7days");
-        $quotation = new Quotation();
-        $quotation->setDepartureAt($next->setTime(9,0,0));
-        $quotation->setArrivalAt($next->setTime(18,0,0));
-        $quotationForm = $this->createForm(QuotationType::class, $quotation, [
-            "action" => $this->generateUrl("app_visitor_quotation")
-        ]);
+
 
         return $this->render('visitor/index.html.twig', [
             'carousselPictures' => $carouselPictureRepository->findAll(),
             'serviceCards'      => $serviceCardRepository->findAll(),
             'siteMetadata'      => $siteMetadataRepository->findOneBy([]),
             'contactForm'       => $contactForm->createView(),
-            'quotationForm'     => $quotationForm->createView()
         ]);
     }
 
@@ -83,7 +74,7 @@ class VisitorController extends AbstractController
         ], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    #[Route('/quotation', name: 'app_visitor_quotation', methods: ["POST"])]
+    #[Route('/quotation', name: 'app_visitor_quotation', methods: ["GET", "POST"])]
     public function quoation(
         QuotationRepository $quotationRepository,
         Request $request,
@@ -91,11 +82,16 @@ class VisitorController extends AbstractController
     ): Response
     {
         // Quotation form
+        $now = new \DateTimeImmutable("now");
+        $next = $now->modify("+7days");
         $quotation = new Quotation();
-        $form = $this->createForm(QuotationType::class, $quotation);
+        $quotation->setDepartureAt($next->setTime(9,0,0));
+        $quotation->setArrivalAt($next->setTime(18,0,0));
+        $form = $this->createForm(QuotationType::class, $quotation, [
+            "action" => $this->generateUrl("app_visitor_quotation")
+        ]);
         $form->handleRequest($request);
-        $errors = [];
-        if( $form->isSubmitted() && $form->isValid() ){
+        if( $form->isSubmitted() && $form->isValid() ) {
             $quotation->setCreatedAt(new \DateTimeImmutable("now"));
             $quotation->setIsHidden(false);
             $quotationRepository->save($quotation, true);
@@ -103,18 +99,10 @@ class VisitorController extends AbstractController
             return new JsonResponse([
                 "message" => "Votre demande de devis a été envoyée, nous reviendrons vers vous prochainement!"
             ]);
-        }elseif( $form->isSubmitted() ){
-            /**
-             * @var FormError[] $errors
-             */
-            $errors = $form->getErrors(true);
-            foreach ( $errors as $error ){
-                dd($error->getMessage());
-            }
         }
-        return new JsonResponse([
-            "message" => "Votre message n'a pas pu être envoyé."
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+       return $this->render("visitor/quotation_form.html.twig",[
+           'quotationForm'     => $form->createView()
+       ]);
     }
 
 
