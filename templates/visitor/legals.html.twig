@@ -2,42 +2,36 @@
 
 {% block body_visitor %}
     <h1 class="border-top py-3 text-center bg-protoblue text-white">Mentions légales</h1>
-    <div class="container">
+    <div class="container p-5">
 
 
 
-    <h2>1. Informations sur l'éditeur du site</h2>
-    <p>[Nom de l'entreprise]<br>
-        [Adresse de l'entreprise]<br>
-        [Numéro de téléphone]<br>
-        [Adresse e-mail]<br>
-        [Numéro d'identification d'entreprise]</p>
+    <h2 class="">1. Informations sur l'éditeur du site</h2>
+    <p>Transport Proto<br>
+        Adresse: {{ siteMetadata.street }}, {{ siteMetadata.zipcode }} {{ siteMetadata.city }}<br>
 
-    <h2>2. Directeur de la publication</h2>
-    <p>[Nom du directeur de la publication]<br>
-        [Adresse e-mail]</p>
+        Téléphone: {{ siteMetadata.phone }}<br>
+        E-mail: {{ siteMetadata.contactEmail }}<br>
+        SIRET: 83475886400021
+        </p>
 
-    <h2>3. Hébergeur du site</h2>
-    <p>[Nom de l'hébergeur]<br>
-        [Adresse de l'hébergeur]<br>
-        [Numéro de téléphone]</p>
 
-    <h2>4. Propriété intellectuelle</h2>
+    <h2 class="mt-5">2. Hébergeur du site</h2>
+    <p>Hostinger<br>
+
+    <h2 class="mt-5">3. Propriété intellectuelle</h2>
     <p>Le contenu du Site, y compris mais sans s'y limiter, les textes, les graphiques, les images, les vidéos, les logos et les icônes, est la propriété exclusive de [Nom de l'entreprise] et est protégé par les lois sur la propriété intellectuelle en vigueur. Toute reproduction, modification, distribution ou utilisation non autorisée du contenu du Site est strictement interdite.</p>
 
-    <h2>5. Collecte de données personnelles</h2>
+    <h2 class="mt-5">4. Collecte de données personnelles</h2>
     <p>Lors de votre utilisation du Site, certaines données personnelles peuvent être collectées. Ces informations seront traitées conformément à notre <a href="[lien vers la politique de confidentialité]">politique de confidentialité</a>.</p>
 
-    <h2>6. Cookies</h2>
-    <p>Le Site utilise des cookies pour améliorer votre expérience utilisateur. Vous pouvez paramétrer votre navigateur pour refuser les cookies, mais cela peut limiter certaines fonctionnalités du Site.</p>
-
-    <h2>7. Liens externes</h2>
+    <h2 class="mt-5">5. Liens externes</h2>
     <p>Le Site peut contenir des liens vers des sites web tiers. Nous n'assumons aucune responsabilité quant au contenu ou à la politique de confidentialité de ces sites web. Veuillez prendre connaissance des mentions légales et de la politique de confidentialité de ces sites tiers avant de les utiliser.</p>
 
-    <h2>8. Limitation de responsabilité</h2>
+    <h2 class="mt-5">6. Limitation de responsabilité</h2>
     <p>Nous nous efforçons de maintenir les informations du Site à jour et exactes. Cependant, nous ne pouvons garantir l'exactitude, l'exhaustivité ou la pertinence du contenu. En conséquence, nous déclinons toute responsabilité en cas d'erreur ou d'omission dans les informations fournies sur le Site.</p>
 
-    <h2>9. Modification des mentions légales</h2>
+    <h2 class="mt-5">6. Modification des mentions légales</h2>
     <p>Nous nous réservons le droit de modifier les présentes mentions légales à tout moment. Les modifications prendront effet dès leur publication sur le Site. Il est de votre responsabilité de consulter régulièrement les mentions légales afin de prendre connaissance des éventuelles modifications.</p>
     </div>
 {% endblock %}

@@ -5,9 +5,16 @@
             </a>
 
             <nav class="d-inline-flex ms-md-auto">
+
+                {% if app.request.get("_route") == 'app_visitor' %}
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_visitor') }}">Accueil</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#our-services">Nos Services</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="#contact-us">Contactez-nous</a>
+                {% else %}
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_visitor') }}">Accueil</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_visitor') }}#our-services">Nos Services</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_visitor') }}#contact-us">Contactez-nous</a>
+                {% endif %}
                 {%if app.user != null %}
                     <a class="me-3 py-2 text-dark text-decoration-none" href="{{ path('app_admin_home') }}">Administration</a>
                 {% endif %}

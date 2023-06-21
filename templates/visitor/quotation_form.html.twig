@@ -5,6 +5,13 @@
     </div>
 </div>
 
+{% if success %}
+    <div class="alert bg-success text-white">
+        <i class="bi bi-check2-circle"></i> Votre demande de devis a bien été enregistrée, nous reviendrons vers vous au plus vite!
+    </div>
+
+{% else %}
+
 <div id="quotation-form">
     <div class="d-none alert bg-danger text-white" id="quotation-alert"><i class="bi bi-exclamation-triangle"></i> <span></span> </div>
     <div class="d-none alert bg-success text-white" id="quotation-success"><i class="bi bi-check2"></i> <span></span> </div>
@@ -42,9 +49,16 @@
             {{ form_row(quotationForm.isUsingBus) }}
 
         </div>
+    </div>
 
+    <div class="row border-top pt-3">
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success"><i class="bi bi-cursor"></i> Envoyer ma demande</button>
+        </div>
 
     </div>
 
     {{ form_end(quotationForm) }}
 </div>
+
+{% endif %}

@@ -31,7 +31,8 @@ class QuotationType extends AbstractType
                 "label" => "Téléphone"
             ])
             ->add('fax', TextType::class, [
-                "label" => "Fax"
+                "label" => "Fax",
+                "required"  => false
             ])
             ->add('departureCity', TextType::class, [
                 "label" => "Ville de départ"
@@ -53,7 +54,8 @@ class QuotationType extends AbstractType
                 "label"     => "Nombre de passagers"
             ])
             ->add('isUsingBus', CheckboxType::class, [
-                "label" => "Utilisation du bus sur place"
+                "label" => "Utilisation du bus sur place",
+                "required"  => false
             ])
         ;
     }

@@ -91,27 +91,37 @@ class VisitorController extends AbstractController
             "action" => $this->generateUrl("app_visitor_quotation")
         ]);
         $form->handleRequest($request);
+        $success = false;
+
         if( $form->isSubmitted() && $form->isValid() ) {
             $quotation->setCreatedAt(new \DateTimeImmutable("now"));
             $quotation->setIsHidden(false);
             $quotationRepository->save($quotation, true);
             $contactMailer->sendQuotationEmail($quotation);
-            return new JsonResponse([
-                "message" => "Votre demande de devis a été envoyée, nous reviendrons vers vous prochainement!"
-            ]);
+            $success = true;
         }
-       return $this->render("visitor/quotation_form.html.twig",[
-           'quotationForm'     => $form->createView()
-       ]);
+        return $this->render("visitor/quotation_form.html.twig",[
+            'quotationForm'     => $form->createView(),
+            'success'           => $success
+        ]);
     }
 
 
     #[Route('/mentions-legales', name: 'app_visitor_legals')]
     public function legalMentions(
+        SiteMetadataRepository $siteMetadataRepository
     ): Response
     {
         return $this->render('visitor/legals.html.twig', [
+            'siteMetadata'      => $siteMetadataRepository->findOneBy([]),
+        ]);
+    }
 
-            ]);
+    #[Route('/conditions-utilisation', name: 'app_visitor_conditions')]
+    public function conditions(
+    ): Response
+    {
+        return $this->render('visitor/conditions.html.twig', [
+        ]);
     }
 }

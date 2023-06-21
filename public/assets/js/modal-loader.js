@@ -29,11 +29,9 @@ const modalLoader = {
 
     toggleModalLoader: function(){
         const modalLoader = document.querySelector("#modal-loader");
-        const modalFooter = document.querySelector(".modal-footer");
 
 
         modalLoader.classList.toggle("d-none");
-        modalFooter.classList.toggle("d-none");
 
     },
 
